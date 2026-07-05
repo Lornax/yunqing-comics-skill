@@ -14,7 +14,7 @@
 ## 文件说明
 
 ```text
-yunqing-comics/
+yunqing-comics-skill/
 ├── SKILL.md
 ├── agents/
 │   └── openai.yaml
@@ -31,7 +31,8 @@ yunqing-comics/
 ## 安装
 
 ```bash
-cp -r skills/yunqing-comics ~/.hermes/skills/creative/yunqing-comics
+git clone https://github.com/Lornax/yunqing-comics-skill.git
+cp -r yunqing-comics-skill ~/.hermes/skills/creative/yunqing-comics
 ```
 
 装完后，可以这样调用：
