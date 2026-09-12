@@ -1,58 +1,36 @@
-# 生图提示词模板
+# 紧凑生图提示词
 
-每张图单独生成。根据正文内容替换变量，不要把多张图拼在一张里。
+每张图单独生成。提示词通常 70-180 字，硬上限 220 字；优先保留核心动作和准确文字，删除次要场景。分析不传入工具。
 
-```text
-Use case: illustration-story
-Asset type: Chinese article body illustration in the Yunqing Comics recurring IP style
-Primary request: Create one standalone hand-drawn article illustration that explains this idea: {核心意思}
-Scene/backdrop: clean warm white paper background with generous empty space; only a few simple desk/story objects if needed
-Subject: recurring original IP characters, a small fluffy cloud and a tiny clear bottle. The cloud is {云朵动作}; the bottle is {瓶子动作}. They must perform the core conceptual action, not decorate the scene.
-Role semantics: {work-division / AI-human collaboration / blended}. If AI-human collaboration, the cloud represents Yunqing the AI assistant and the bottle represents Zaiping / the human creator; keep both as cloud-and-bottle IP characters, not a robot and a human body.
-Structure type: {前后对比 / 系统局部 / 输入处理输出 / 方法分层 / 角色状态 / 概念隐喻}
-Composition/framing: {具体构图：主物件、左右/前后关系、信息如何移动}
-Style/medium: cute independent hand-drawn cartoon IP, loose pencil and fine ink linework, slightly wobbly imperfect outlines, soft watercolor wash accents, simple black dot faces, warm but not childish, polished article illustration
-Color palette: warm off-white, graphite gray lines, pale sky blue, transparent soft blue, muted peach, cream yellow, tiny honey-yellow star details
-Materials/textures: light paper grain, soft pencil texture, translucent bottle wash, simple rounded handmade shapes
-Text: {默认 no readable text；如需要，使用 0-4 个外围手写标注，每个 2-6 个中文字；标注词必须从当前文章段落的关键词、角色动作或核心隐喻中提炼；不要复用固定词表；不要标题、长句或图例}
-Constraints: one image explains only one core idea; keep the characters central to the action; preserve generous white space; use a fresh physical metaphor for this article
-Avoid: avoid photorealism, 3D render, hard vector logo style, PPT infographic look, dense UI screenshot, complex architecture diagram, lots of text, branded elements, copying Xiaohei or any reference character
-```
-
-## 提炼标注和动作
-
-生成前先从当前正文提炼：
-
-- 1 个核心判断：这张图到底解释什么。
-- 1-2 个动作词：例如搬、托、选、压平、过滤、连接、盖章、沉淀；必须贴合正文。
-- 0-4 个短标注：必须来自当前段落的关键词或隐喻，不要因为模板里出现过就默认使用。
-
-如果正文没有明确关键词，宁可不写字。不要把上一张图里的“问题 / 候选 / 判断 / 沉淀”等词自动带入下一张图。
-
-## 让角色更参与
-
-如果角色变成装饰，用这个方向重写：
+## 正文默认模板
 
 ```text
-Regenerate with the same core idea, but make the cloud and bottle perform the conceptual work. The cloud should physically move, connect, soften, or gather the messy part. The bottle should record, store, filter, validate, or protect the organized result. If the characters are removed, the metaphor should no longer work.
+横向温暖白底手绘插图：小云朵{动作前半}，透明小瓶子{动作后半}，围绕{一个主物件}。细灰铅笔线，浅蓝与奶油黄淡水彩，大量留白。{物件或动作}旁用清晰深灰自然手写体写“{短标注}”，{另一处}旁写“{短标注}”。无其他文字，非3D。
 ```
 
-## 强化 AI-人协作
+默认 1-2 处标注，每处通常 2-6 字，从当前段落重新提炼。用户明确要无字时才换成“无文字”。标注点明动作或物件的业务含义，不套用固定词表。
 
-当主题涉及 AI 助理和人类共同完成任务时，用这个方向重写：
+例如讲数据底座支撑业务工具时，可在管道旁写“数据底座”、工具幼苗旁写“业务工具”。这是语义对应示例，不是其他文章的默认词。
+
+## 封面模板
 
 ```text
-Regenerate with the cloud as Yunqing, the AI assistant, and the tiny clear bottle as Zaiping / the human creator. The cloud should sort messy inputs into a few candidate cards or gentle threads. The bottle should choose, stamp, store, or label the final result, showing human judgment and ownership. Keep the characters as the original cloud-and-bottle IP; do not draw a robot or realistic person.
+微信公众号封面，2.35:1横版，温暖白底细灰手绘线与轻水彩。完整标题“{文章标题}”，清晰醒目，{分行及位置}，四周留安全边距。小云朵{动作}，透明小瓶子{配合动作}，共同围绕{主物件}，与文字错开。浅蓝和奶油黄，大量留白，无其他文字。
 ```
 
-## 加少量手写标注
+封面默认必须带标题；标题可用清晰粗体，正文标注才默认自然手写体。长标题优先分行并简化配景，不因字数删掉标题。不把封面做成只有短标注的正文图。
+
+## 网络失败后的极速重试
+
+压到 140 字内，删除次要物件、多阶段动作和背景解释；封面保留完整标题，正文保留核心标注。
 
 ```text
-Add only 0-4 tiny handwritten Chinese side labels near the relevant objects. The label words must be extracted from the current article section and its metaphor. Keep labels peripheral, readable, and sparse. Do not use a fixed default label set. Do not add a big title, legend, paragraph, or speech bubble.
+横向暖白底手绘图：小云朵{动作}，透明小瓶子{配合动作}。细灰线、浅蓝淡水彩、留白。{文字位置与准确文案}，清晰可读。
 ```
 
-## 减少信息图感
+## 发送前检查
 
-```text
-Regenerate as a warm hand-drawn article illustration, not a diagram. Remove title bars, grid layout, formal nodes, excessive arrows, and explanatory labels. Keep one main handmade object and one clear action.
-```
+- 单一核心动作，角色共同参与，物理事件无需多步箭头才能理解。
+- 正文标注直接揭示本段含义；封面有文章标题。仅用户明确要求无字时省略。
+- 写明准确文字、位置、书写体和可读性；封面标题可用醒目粗体。
+- 不附分析字段，不复用无关标注，总长不超过 220 字；重试不超过 140 字。

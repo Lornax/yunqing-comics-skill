@@ -7,9 +7,11 @@
 ## 支持场景
 
 - 给中文公众号文章规划正文配图
+- 生成带完整标题的微信公众号横版封面
 - 把方法论、AI 工作流、产品思考画成低科技物理隐喻
 - 表达 AI 助理与人类创作者之间的协作关系
-- 输出 shot list、单张生图提示词和迭代建议
+- 为正文插图提炼少量、清晰的手写短标注
+- 输出 shot list、紧凑单张生图提示词和迭代建议
 - 检查图像是否符合云青漫画风格
 
 ## 文件说明
@@ -31,6 +33,16 @@ yunqing-comics-skill/
 
 ## 安装
 
+### Codex
+
+```bash
+git clone https://github.com/Lornax/yunqing-comics-skill.git ~/GitHub/yunqing-comics-skill
+mkdir -p ~/.agents/skills
+ln -s ~/GitHub/yunqing-comics-skill ~/.agents/skills/yunqing-comics
+```
+
+### Hermes Agent
+
 ```bash
 git clone https://github.com/Lornax/yunqing-comics-skill.git
 cp -r yunqing-comics-skill ~/.hermes/skills/creative/yunqing-comics
@@ -48,7 +60,8 @@ Use $yunqing-comics to turn this Chinese article section into a Yunqing cloud-an
 - 小云朵和小瓶子必须参与核心动作，不能只是站在旁边卖萌
 - 小云朵可以代表云青 AI 助理，小瓶子可以代表在瓶/人类创作者
 - 默认温暖白底、手绘细线、轻水彩、大量留白
-- 少文字，少箭头，少结构图感；必要标注必须从当前文章语义提炼
+- 封面默认使用完整标题；正文默认只有 1–2 处从当前文章语义提炼的手写短标注
+- 少箭头、少结构图感，一张图只冻结一个核心动作
 - 每篇文章重新发明隐喻，不复刻参考图、已有示例或他人 IP
 
 ## 致谢
